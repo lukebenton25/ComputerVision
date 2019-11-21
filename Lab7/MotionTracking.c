@@ -61,9 +61,13 @@ int main()
 	
 	while(!feof(fpt) && !(i == data_size))
 	{
-		if (i != 0)
+		if (i == 0)
 		{
-			fscanf(fpt, "%f %f %f %f %f %f %f\n", &Table[TIME][i-1], &Table[ACCX][i-1], &Table[ACCY][i-1], &Table[ACCZ][i-1], &Table[PITCH][i-1], &Table[ROLL][i-1], &Table[YAW][i-1]);
+			fscanf(fpt, "time	accX	accY	accZ	pitch	roll	yaw							\n");
+		}
+		else
+		{
+			fscanf(fpt, "%f %f %f %f %f %f %f \n", &Table[TIME][i-1], &Table[ACCX][i-1], &Table[ACCY][i-1], &Table[ACCZ][i-1], &Table[PITCH][i-1], &Table[ROLL][i-1], &Table[YAW][i-1]);
 			accXAvg  += Table[ACCX][i-1];
 			accYAvg  += Table[ACCY][i-1];
 			accZAvg  += Table[ACCZ][i-1];
