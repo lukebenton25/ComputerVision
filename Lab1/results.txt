@@ -1,0 +1,161 @@
+Standard 7x7 Filter Running: 
+Start Time: 1568073094 506865749
+End Time: 1568073094 542321510
+Difference in ns: 35455761
+======================================
+Separable Filter Running: 
+Start Time: 1568073094 545360022
+End Time: 1568073094 567013422
+Difference in ns: 21653400
+======================================
+Sliding Window Running: 
+Start Time: 1568073094 572315100
+End Time: 1568073094 576515406
+Difference in ns: 4200306
+======================================
+
+Standard 7x7 Filter Running: 
+Start Time: 1568073170 933295736
+End Time: 1568073170 958169162
+Difference in ns: 24873426
+======================================
+Separable Filter Running: 
+Start Time: 1568073170 961440878
+End Time: 1568073170 979913574
+Difference in ns: 18472696
+======================================
+Sliding Window Running: 
+Start Time: 1568073170 991763145
+End Time: 1568073170 998294798
+Difference in ns: 6531653
+======================================
+
+Standard 7x7 Filter Running: 
+Start Time: 1568073173 111067507
+End Time: 1568073173 136369212
+Difference in ns: 25301705
+======================================
+Separable Filter Running: 
+Start Time: 1568073173 139432604
+End Time: 1568073173 170481926
+Difference in ns: 31049322
+======================================
+Sliding Window Running: 
+Start Time: 1568073173 171461346
+End Time: 1568073173 175804824
+Difference in ns: 4343478
+======================================
+
+Standard 7x7 Filter Running: 
+Start Time: 1568073342 480816440
+End Time: 1568073342 504010012
+Difference in ns: 23193572
+======================================
+Separable Filter Running: 
+Start Time: 1568073342 507048274
+End Time: 1568073342 546338123
+Difference in ns: 39289849
+======================================
+Sliding Window Running: 
+Start Time: 1568073342 548338004
+End Time: 1568073342 552400547
+Difference in ns: 4062543
+======================================
+
+Standard 7x7 Filter Running: 
+Start Time: 1568073347 632893369
+End Time: 1568073347 660983761
+Difference in ns: 28090392
+======================================
+Separable Filter Running: 
+Start Time: 1568073347 666184387
+End Time: 1568073347 688351118
+Difference in ns: 22166731
+======================================
+Sliding Window Running: 
+Start Time: 1568073347 693917921
+End Time: 1568073347 699517155
+Difference in ns: 5599234
+======================================
+
+Standard 7x7 Filter Running: 
+Start Time: 1568073349 788213554
+End Time: 1568073349 826755168
+Difference in ns: 38541614
+======================================
+Separable Filter Running: 
+Start Time: 1568073349 836484596
+End Time: 1568073349 850189605
+Difference in ns: 13705009
+======================================
+Sliding Window Running: 
+Start Time: 1568073349 856387841
+End Time: 1568073349 864100588
+Difference in ns: 7712747
+======================================
+
+Standard 7x7 Filter Running: 
+Start Time: 1568073519 572224716
+End Time: 1568073519 596286075
+Difference in ns: 24061359
+======================================
+Separable Filter Running: 
+Start Time: 1568073519 601664385
+End Time: 1568073519 621939547
+Difference in ns: 20275162
+======================================
+Sliding Window Running: 
+Start Time: 1568073519 622600211
+End Time: 1568073519 628670664
+Difference in ns: 6070453
+======================================
+
+Standard 7x7 Filter Running: 
+Start Time: 1568073521 199093968
+End Time: 1568073521 223755399
+Difference in ns: 24661431
+======================================
+Separable Filter Running: 
+Start Time: 1568073521 226765921
+End Time: 1568073521 243950730
+Difference in ns: 17184809
+======================================
+Sliding Window Running: 
+Start Time: 1568073521 252102386
+End Time: 1568073521 256058057
+Difference in ns: 3955671
+======================================
+
+Standard 7x7 Filter Running: 
+Start Time: 1568073523 84926819
+End Time: 1568073523 107845255
+Difference in ns: 22918436
+======================================
+Separable Filter Running: 
+Start Time: 1568073523 111499419
+End Time: 1568073523 132177500
+Difference in ns: 20678081
+======================================
+Sliding Window Running: 
+Start Time: 1568073523 136729033
+End Time: 1568073523 142723805
+Difference in ns: 5994772
+======================================
+
+Standard 7x7 Filter Running: 
+Start Time: 1568073524 493308705
+End Time: 1568073524 515615989
+Difference in ns: 22307284
+======================================
+Separable Filter Running: 
+Start Time: 1568073524 518521498
+End Time: 1568073524 535196727
+Difference in ns: 16675229
+======================================
+Sliding Window Running: 
+Start Time: 1568073524 538156627
+End Time: 1568073524 550531319
+Difference in ns: 12374692
+======================================
+
+
