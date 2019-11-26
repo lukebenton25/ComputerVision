@@ -1,0 +1,100 @@
+RESULTS:
+########################################################
+X Movement: 0.324663 [m]
+Y Movement: -0.280333 [m]
+Z Movement: 0.216977 [m]
+Pitch Movement: -0.016488 [rad]
+Roll Movement: -0.002989 [rad]
+Yaw Movement: -0.025635 [rad]
+Start Time: 0.75		End Time: 2.65
+Start Index: 14		End Index: 52
+
+
+########################################################
+X Movement: 0.077216 [m]
+Y Movement: 0.556208 [m]
+Z Movement: 0.171221 [m]
+Pitch Movement: 0.001593 [rad]
+Roll Movement: -0.022141 [rad]
+Yaw Movement: 0.022497 [rad]
+Start Time: 5.45		End Time: 7.15
+Start Index: 108		End Index: 142
+
+
+########################################################
+X Movement: -0.208693 [m]
+Y Movement: 0.086416 [m]
+Z Movement: 0.172758 [m]
+Pitch Movement: -0.004715 [rad]
+Roll Movement: -0.009771 [rad]
+Yaw Movement: -0.026665 [rad]
+Start Time: 10.25		End Time: 11.90
+Start Index: 204		End Index: 237
+
+
+########################################################
+X Movement: 0.650188 [m]
+Y Movement: -0.024251 [m]
+Z Movement: 0.311491 [m]
+Pitch Movement: -0.003550 [rad]
+Roll Movement: 0.002754 [rad]
+Yaw Movement: 0.042411 [rad]
+Start Time: 14.25		End Time: 16.45
+Start Index: 284		End Index: 328
+
+
+########################################################
+X Movement: 16.408960 [m]
+Y Movement: -12.966489 [m]
+Z Movement: 3.811162 [m]
+Pitch Movement: -0.013730 [rad]
+Roll Movement: -0.033550 [rad]
+Yaw Movement: -0.022816 [rad]
+Start Time: 18.80		End Time: 24.55
+Start Index: 375		End Index: 490
+
+
+########################################################
+X Movement: -0.221626 [m]
+Y Movement: -0.147999 [m]
+Z Movement: 0.409759 [m]
+Pitch Movement: 0.046144 [rad]
+Roll Movement: 0.002978 [rad]
+Yaw Movement: 1.566631 [rad]
+Start Time: 31.00		End Time: 33.70
+Start Index: 619		End Index: 673
+
+
+########################################################
+X Movement: -0.134216 [m]
+Y Movement: 0.136253 [m]
+Z Movement: 0.102390 [m]
+Pitch Movement: -0.001799 [rad]
+Roll Movement: -0.011219 [rad]
+Yaw Movement: -1.540733 [rad]
+Start Time: 37.05		End Time: 38.85
+Start Index: 740		End Index: 776
+
+
+########################################################
+X Movement: -10.504405 [m]
+Y Movement: -186.317215 [m]
+Z Movement: 174.996948 [m]
+Pitch Movement: 0.009000 [rad]
+Roll Movement: -0.035547 [rad]
+Yaw Movement: -0.023689 [rad]
+Start Time: 42.60		End Time: 49.75
+Start Index: 851		End Index: 994
+
+
+########################################################
+X Movement: 179.587387 [m]
+Y Movement: -0.274640 [m]
+Z Movement: 182.312164 [m]
+Pitch Movement: -0.037802 [rad]
+Roll Movement: 0.067978 [rad]
+Yaw Movement: -0.023690 [rad]
+Start Time: 52.80		End Time: 59.75
+Start Index: 1055		End Index: 1194
+
+
