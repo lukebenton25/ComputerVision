@@ -2,11 +2,13 @@
 #include <stdio.h>
 #include <math.h>
 #include <stdbool.h>
+#include <string.h>
 #include "RangeSegmentation.h"
 
 int main ()
 {
 	FILE          *fpt;
+	int           ROWS, COLS, BYTES;
 	char          header[320];
 	cart_coord_t  *Coords;
 	unsigned char *RangeImage;
@@ -19,37 +21,41 @@ int main ()
 	int           r, c;
 	int           *indices;
 	bool          valid_seed;
-	unsigned char *labels;
 	int           RegionSize, TotalRegions;
 	
-	fpt = fopen("chair-range.ppm", "rb");
-	if (fpt == NULL)
+	/* read image */
+	if ((fpt=fopen("chair-range.ppm","rb")) == NULL)
 	{
-		printf("Error opening range image file.\n");
+		printf("Unable to open range image for reading\n");
 		exit(0);
 	}
 	fscanf(fpt,"%s %d %d %d",header,&COLS,&ROWS,&BYTES);
+	if (strcmp(header,"P5") != 0  ||  BYTES != 255)
+	{
+		printf("Not a greyscale 8-bit PPM image\n");
+		exit(0);
+	}
+	RangeImage = (unsigned char *)calloc(ROWS*COLS,sizeof(unsigned char));
+	header[0] = fgetc(fpt);	/* read white-space character that separates header */
+	fread(RangeImage, 1, COLS*ROWS, fpt);
+	fclose(fpt);
 	
 	Coords = (cart_coord_t *)calloc(ROWS*COLS, sizeof(cart_coord_t));
-	RangeImage = (unsigned char *)calloc(ROWS*COLS, sizeof(unsigned char));
 	ThreshholdImage = (unsigned char *)calloc(ROWS*COLS, sizeof(unsigned char));
 	SurfaceNormal = (cart_coord_t *)calloc(ROWS*COLS, sizeof(cart_coord_t));
 	OutputImage = (unsigned char *)calloc(ROWS*COLS, sizeof(unsigned char));
 	
-	fread(RangeImage, 1, ROWS*COLS, fpt);
-	fclose(fpt);
 	
-	for (i = 0; i < ROWS*COLS; i++)
-	{
-		ThreshholdImage[i] = RangeImage[i];
-	}
-	threshold(ThreshholdImage, 140);
+	output_filename = "input.ppm";
+	WriteGreyScaleImage(RangeImage, output_filename, ROWS, COLS);
+	
+	threshold(RangeImage, ThreshholdImage, 137, ROWS, COLS);
 	
 	output_filename = "threshold.ppm";
-	WriteGreyScaleImage(RangeImage, output_filename);
+	WriteGreyScaleImage(ThreshholdImage, output_filename, ROWS, COLS);
 	
-	convert2XYZ(RangeImage, Coords);
-	SurfaceNormalCalc(Coords, SurfaceNormal);
+	convert2XYZ(RangeImage, Coords, ROWS, COLS);
+	SurfaceNormalCalc(Coords, SurfaceNormal, ROWS, COLS);
 	
 	// Begin Region Growing
 	
@@ -75,8 +81,9 @@ int main ()
 			}
 			if (valid_seed)
 			{
+				printf("I: %d, J: %d\n", i, j);
 				TotalRegions += 30;
-				RegionGrow(RangeImage, OutputImage, i, j, 0, TotalRegions, SurfaceNormal, indices, &RegionSize);
+				RegionGrow(RangeImage, OutputImage, i, j, ROWS, COLS, 0, TotalRegions, SurfaceNormal, indices, &RegionSize);
 				if (RegionSize < 100)
 				{
 					for (k = 0; k < RegionSize; k++)
@@ -85,30 +92,35 @@ int main ()
 					}
 					TotalRegions -= 30;
 				}
+				else
+				{
+					printf("Region Number: %d \t Number of Pixels: %d\n", (TotalRegions/30)-1, RegionSize);
+				}
 			}
+			
 		}
 	}
 	
-	printf("Total Regions: %d\n", TotalRegions/30);
 	output_filename = "output.ppm";
-	WriteGreyScaleImage(OutputImage, output_filename);
+	WriteGreyScaleImage(OutputImage, output_filename, ROWS, COLS);
+	WriteColorImage(OutputImage, ROWS, COLS);
 	
 	return (0);
 }
 
-void WriteGreyScaleImage(unsigned char *image, char *filename)
+void WriteGreyScaleImage(unsigned char *image, char *filename, int ROWS, int COLS)
 {
 	FILE *fpt;
 	
 	fpt = fopen(filename, "w");
 	fprintf(fpt, "P5 %d %d 255\n", COLS, ROWS);
-	fwrite(image, COLS*ROWS, 1, fpt);
+	fwrite(image, COLS*ROWS, sizeof(unsigned char), fpt);
 	fclose(fpt);
 	
 	return;
 }
 
-void SurfaceNormalCalc(cart_coord_t *Coords, cart_coord_t *SurfaceNormal)
+void SurfaceNormalCalc(cart_coord_t *Coords, cart_coord_t *SurfaceNormal, int ROWS, int COLS)
 {
 	int    r;
 	int    c;
@@ -140,19 +152,19 @@ void SurfaceNormalCalc(cart_coord_t *Coords, cart_coord_t *SurfaceNormal)
 }
 
 
-void threshold(unsigned char *image, int thresh_val)
+void threshold(unsigned char *image, unsigned char *output_image, int thresh_val, int ROWS, int COLS)
 {
   int i;
   for (i = 0; i < ROWS*COLS; i++)
   {
-    if (image[i] < thresh_val)
+    if (image[i] > thresh_val)
     {
 		// Don't overwrite values cause we'll need them later
-		image[i] = image[i];
+		output_image[i] = 255;
     }
     else
     {
-		image[i] = 255;
+		output_image[i] = image[i];
     }
   }
 
@@ -169,6 +181,7 @@ void threshold(unsigned char *image, int thresh_val)
 void RegionGrow(unsigned char *image,	/* image data */
 	unsigned char *labels,	/* segmentation labels */
 	int r, int c,		/* pixel to paint from */
+	int ROWS, int COLS,
 	int paint_over_label,	/* image label to paint over */
 	int new_label,		/* image label for painting */
 	cart_coord_t *SurfaceNormal, /* Input: Surface Noraml Image */
@@ -198,6 +211,10 @@ void RegionGrow(unsigned char *image,	/* image data */
 	average.Y = SurfaceNormal[r*COLS+c].Y;
 	average.Z = SurfaceNormal[r*COLS+c].Z;
 	
+	total.X = SurfaceNormal[r*COLS+c].X;
+	total.Y = SurfaceNormal[r*COLS+c].Y;
+	total.Z = SurfaceNormal[r*COLS+c].Z;
+	
 	if (indices != NULL)
 		indices[0] = r*COLS + c;
 	
@@ -213,8 +230,8 @@ void RegionGrow(unsigned char *image,	/* image data */
 			{
 				if (r2 == 0 && c2 == 0)
 					continue;
-				if ((queue[qt] / COLS + r2) < 0 || (queue[qt] / COLS + r2) >= ROWS - 2 ||
-					(queue[qt] % COLS + c2) < 0 || (queue[qt] % COLS + c2) >= COLS - 2)
+				if ((queue[qt] / COLS + r2) < 0 || (queue[qt] / COLS + r2) >= ROWS - 3 ||
+					(queue[qt] % COLS + c2) < 0 || (queue[qt] % COLS + c2) >= COLS - 3)
 					continue;
 				if (labels[(queue[qt] / COLS + r2)*COLS + queue[qt] % COLS + c2] != paint_over_label)
 					continue;
@@ -223,11 +240,11 @@ void RegionGrow(unsigned char *image,	/* image data */
 				
 				/* test criteria to join region */
 				tempX = (average.X * SurfaceNormal[curr_pos].X);
-				tempY = (average.X * SurfaceNormal[curr_pos].Y);
-				tempZ = (average.X * SurfaceNormal[curr_pos].Z);
+				tempY = (average.Y * SurfaceNormal[curr_pos].Y);
+				tempZ = (average.Z * SurfaceNormal[curr_pos].Z);
 				
 				dot_product = tempX + tempY + tempZ;
-				mag1 = sqrt(SQR(average.X) + SQR(average.Y) + SQR(average.Y));
+				mag1 = sqrt(SQR(average.X) + SQR(average.Y) + SQR(average.Z));
 				mag2 = sqrt(SQR(SurfaceNormal[curr_pos].X) + SQR(SurfaceNormal[curr_pos].Y) + SQR(SurfaceNormal[curr_pos].Z));
 				
 				angle = acos(dot_product / (mag1 * mag2));
@@ -260,4 +277,5 @@ void RegionGrow(unsigned char *image,	/* image data */
 		qt = (qt + 1) % MAX_QUEUE;
 
 	}
+	printf("X: %lf, Y: %lf, Z: %lf, Count: %d\n", average.X, average.Y, average.Z, (*count));
 }

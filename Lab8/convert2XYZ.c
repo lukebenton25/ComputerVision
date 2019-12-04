@@ -9,7 +9,7 @@
 */
 
 
-void convert2XYZ(unsigned char *RangeImage, cart_coord_t *Coords)
+void convert2XYZ(unsigned char *RangeImage, cart_coord_t *Coords, int ROWS, int COLS)
 {
 	int	r,c;
 	double	cp[7];
