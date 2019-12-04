@@ -49,10 +49,10 @@ void convert2XYZ(unsigned char *RangeImage, cart_coord_t *Coords)
 		  yangle=(cp[3]*cp[4]*(cp[5]-(double)r))+SlantCorrection*ScanDirectionFlag;	/*  + slant correction */
 		  dist=(double)RangeImage[r*COLS+c]+cp[6];
 		  Coords[r*COLS+c].Z=sqrt((dist*dist)/(1.0+(tan(xangle)*tan(xangle))+(tan(yangle)*tan(yangle))));
-		  Coords[r*COLS+c].X=tan(xangle)*P[2][r*COLS+c];
-		  Coords[r*COLS+c].Y=tan(yangle)*P[2][r*COLS+c];
+		  Coords[r*COLS+c].X=tan(xangle)*Coords[r*COLS+c].Z;
+		  Coords[r*COLS+c].Y=tan(yangle)*Coords[r*COLS+c].Z;
 		}
 	}
 	
-	return();
+	return;
 }
